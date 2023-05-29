@@ -1,0 +1,106 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-size: 135%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(94, 73, 73);
+  width: 400px;
+  height: 500px;
+  border-radius: 10px;
+}
+
+.card h1 {
+  text-align: center;
+  padding-top: 25px;
+}
+
+.card-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+}
+
+input {
+  padding: 10px;
+  border: solid 3px rgb(136, 108, 79);
+  border-radius: 10px;
+}
+
+button {
+  padding: 8px;
+  border-radius: 10px;
+  border: solid 3px rgb(136, 108, 79);
+  background-color: rgb(129, 101, 71);
+  color: #fff;
+  transition: background-color 0.3s ease-in-out;
+}
+
+button:hover {
+  background-color: #fff;
+  color: rgb(136, 108, 79);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+  gap: 15px;
+  text-align: left;
+  margin-left: 70px;
+}
+
+p {
+  font-size: 20px;
+}
+
+h2 {
+
+  margin-bottom: 15px;
+}
+
+.temp {
+  margin-left: 10px;
+  color: #fff;
+}
+
+.humi {
+  margin-left: 35px;
+  color: #fff;
+}
+
+.clou {
+  margin-left: 62px;
+  color: #fff;
+}
+
+.wind {
+  margin-left: 68px;
+  color: #fff;
+}
+
+.city { 
+    color: #fff;
+}
+
+
+  
