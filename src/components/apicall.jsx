@@ -1,5 +1,8 @@
 import "./cardUI.css";
 import React, { useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export const ApiCall = () => {
   const [city, setCity] = useState("");
@@ -10,16 +13,22 @@ export const ApiCall = () => {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
 
     fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        setWeatherData(data);
-        console.log(data);
-      })
-      .catch((error) => {
-        console.log("Error fetching weather data:", error);
-      });
-  };
-
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("API call failed!");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      setWeatherData(data);
+      toast.success('API call successful!');
+      console.log(data);
+    })
+    .catch((error) => {
+      toast.error(error.message);
+      console.log("Error fetching weather data:", error);
+    });
+};
   const KelvinToCelsius = (kelvin) => {
     let conversion = kelvin - 273.15;
     let wholeNum = parseInt(conversion);
@@ -57,6 +66,8 @@ export const ApiCall = () => {
           )}
         </div>
       </div>
+
+      <ToastContainer  autoClose={1000} />
     </>
   );
 };
