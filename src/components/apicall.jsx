@@ -63,7 +63,7 @@ export const ApiCall = () => {
                 Temperature: <span className="temp">{KelvinToCelsius(weatherData.main.temp)}&#176;C</span> 
               </p>
               <p>Humidity:  <span className="humi">{weatherData.main.humidity}% </span> </p>
-              <p>Cloud: <span className="clou"> {weatherData.clouds.all} % </span>  </p>
+              <p>Cloud: <span className="clou"> {weatherData.clouds.all}% </span>  </p>
               <p>Wind: <span className="wind">{weatherData.wind.speed} m/s</span> </p>
             </div>
           )}
