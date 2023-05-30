@@ -10,6 +10,7 @@ body {
   background-size: 135%;
   background-position: center;
   background-repeat: no-repeat;
+  color:white;
 }
 
 .card {
@@ -78,29 +79,7 @@ h2 {
   margin-bottom: 15px;
 }
 
-.temp {
-  margin-left: 10px;
-  color: #fff;
-}
 
-.humi {
-  margin-left: 35px;
-  color: #fff;
-}
-
-.clou {
-  margin-left: 62px;
-  color: #fff;
-}
-
-.wind {
-  margin-left: 68px;
-  color: #fff;
-}
-
-.city { 
-    color: #fff;
-}
 
 
   
