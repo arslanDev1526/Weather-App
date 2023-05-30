@@ -10,7 +10,7 @@ body {
   background-size: 135%;
   background-position: center;
   background-repeat: no-repeat;
-  color:white;
+  color: white;
 }
 
 .card {
@@ -65,9 +65,9 @@ button:hover {
   display: flex;
   flex-direction: column;
   margin-top: 40px;
-  gap: 15px;
-  text-align: left;
-  margin-left: 70px;
+  gap: 12px;
+
+  margin-left: 10px;
 }
 
 p {
@@ -75,11 +75,29 @@ p {
 }
 
 h2 {
-
   margin-bottom: 15px;
 }
 
+.city {
+  display: flex;
+  flex-direction: row;
 
+  gap: 20px;
 
+  justify-content: center;
+}
 
-  
+.container-ui {
+  display: flex;
+  flex-direction: row;
+
+  justify-content: space-evenly;
+}
+
+.wind {
+  margin-left: 25px;
+}
+
+.cloud {
+  margin-left: 10px;
+}
