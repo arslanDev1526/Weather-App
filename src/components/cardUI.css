@@ -78,26 +78,15 @@ h2 {
   margin-bottom: 15px;
 }
 
-.city {
-  display: flex;
-  flex-direction: row;
 
-  gap: 20px;
-
-  justify-content: center;
-}
 
 .container-ui {
   display: flex;
   flex-direction: row;
 
-  justify-content: space-evenly;
+  justify-content: space-between;
+
+width: 200px;
+margin-left: 45px;
 }
 
-.wind {
-  margin-left: 25px;
-}
-
-.cloud {
-  margin-left: 10px;
-}

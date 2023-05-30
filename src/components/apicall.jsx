@@ -73,7 +73,7 @@ export const ApiCall = () => {
 
               <div className="city">
               
-              <h2>City </h2><h2 >{weatherData.name}</h2> 
+             <h2 >{weatherData.name}</h2> 
               </div>
               <div className="container-ui">
               <p>
@@ -84,10 +84,10 @@ export const ApiCall = () => {
               <p>Humidity: </p> <p >{weatherData.main.humidity}%  </p>
               </div>
 
-              <div className="container-ui cloud">
+              <div className="container-ui">
               <p>Cloud: </p><p > {weatherData.clouds.all}% </p>  
               </div>
-              <div className="container-ui wind">
+              <div className="container-ui ">
               <p>Wind:</p> <p className="wind">{weatherData.wind.speed} m/s</p> 
             </div>
             </div>
