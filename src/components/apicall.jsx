@@ -28,6 +28,9 @@ export const ApiCall = () => {
       toast.error(error.message);
       console.log("Error fetching weather data:", error);
     });
+
+    setCity("")
+
 };
   const KelvinToCelsius = (kelvin) => {
     let conversion = kelvin - 273.15;
