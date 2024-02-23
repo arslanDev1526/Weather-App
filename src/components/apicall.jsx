@@ -1,66 +1,91 @@
 import "./cardUI.css";
-import React, { useState,useEffect } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
+
+const locationKey = import.meta.env.VITE_LOCATION_KEY
+const apiKey = import.meta.env.VITE_LOCATION_AP_KEY
+const accessKey = import.meta.env.VITE_ACCESS_KEY
 
 export const ApiCall = ({ photoData, setPhotoData }) => {
   const [city, setCity] = useState("");
   const [weatherData, setWeatherData] = useState(null);
-  const[locationData, setLocationData] = useState("");
+  const [locationData, setLocationData] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
+  const [error, setError] = useState(false);
+  
   useEffect(() => {
-    
     getLocation();
   }, []);
 
   const getLocation = async () => {
-    const locationKey = "f45bbc42-3035-4559-85bf-c46b4992e474";
     const locationUrl = `https://apiip.net/api/check?accessKey=${locationKey}`;
 
     try {
       const locationResponse = await fetch(locationUrl);
       const locationData = await locationResponse.json();
-      setLocationData(locationData.city);
 
-        hitApi(locationData.city);
+      if (!locationData.success) {
+        toast.error(locationData?.message?.type ?? "Invalid input");
+        setError(true)
+        return;
+      }
+
+      setLocationData(locationData.city);
+      setCity(locationData.city);
+      hitApi(locationData.city)
     } catch (error) {
+      setError(true)
+      toast.error(error?.message ?? "Invalid input");
+
       console.log("Error fetching location data:", error);
     }
   };
  
 
   const hitApi = async (city) => {
-    const apiKey = "95cc29ac246be73316eeafd2eb93e502";
     const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
-
-    const accessKey = "b3zKo8_UhTGdEoKzlu5bZJPq0vJXfUWPAnrl0EbI4aE";
     const photoUrl = `https://api.unsplash.com/search/photos?query=${city}&client_id=${accessKey}`;
-  
-
     setIsLoading(true);
 
-    try { 
+    try {
       const responses = await Promise.all([fetch(weatherUrl), fetch(photoUrl)]);
       const weatherData = await responses[0].json();
       const photoData = await responses[1].json();
-  
+
       console.log(weatherData, "weatherData");
       console.log(photoData, "photoData");
-  
+      if (weatherData.cod !== 200) {
+        setError(true)
+        setWeatherData(null);
+        toast.error(weatherData?.message ?? "Invalid input");
+        return;
+      }
+
       setWeatherData(weatherData);
       setPhotoData(photoData);
-    } catch(error) { 
+      setError(false)
+    } catch (error) {
+      setError(true)
       console.log("Error fetching weather data:", error);
     }
     setIsLoading(false);
   };
-  
+
   const KelvinToCelsius = (kelvin) => {
     let conversion = kelvin - 273.15;
     let wholeNum = parseInt(conversion);
     return wholeNum;
   };
+
+  const handleKeyPress = (event) => {
+    if (event.key !== "Enter") return;
+    hitApi(city);
+  };
+
+  const handleClick = (event) => {
+    hitApi(city);
+  };
+
 
   return (
     <>
@@ -72,11 +97,11 @@ export const ApiCall = ({ photoData, setPhotoData }) => {
             }}
             type="text"
             value={city}
-            onKeyDown={event => event.key === 'Enter' && hitApi(event)}
+            onKeyDown={handleKeyPress}
             className="searchbar"
             placeholder="search"
           />
-          <button onClick={()=>hitApi(city)}>
+          <button onClick={handleClick}>
             <svg
               stroke="currentColor"
               fill="currentColor"
@@ -111,8 +136,6 @@ export const ApiCall = ({ photoData, setPhotoData }) => {
           </div>
         )}
       </div>
-
-      <ToastContainer autoClose={1000} />
     </>
   );
 };
