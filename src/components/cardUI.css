@@ -52,8 +52,8 @@ input::placeholder {
 button { 
   border-radius: 50%;
   border: none;
-  height: 30px;
-  width: 30px;
+  height: 40px;
+  width: 40px;
   outline: none;
   background: #7c7c7c2b;
   color: whitesmoke;
@@ -64,8 +64,8 @@ button {
 
 svg { 
   position: absolute;
-  top: 18%;
-  left: 18%;
+  top: 12%;
+  left: 8%;
 }
 
 img { 
