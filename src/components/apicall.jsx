@@ -48,7 +48,7 @@ export const ApiCall = ({ photoData, setPhotoData }) => {
         setWeatherData(weatherData);
         setPhotoData(photoData);
       } else {
-        toast.error("❌ Error! Please try again.");
+        toast.error("❌ Invalid Input...");
       }
     } catch (error) {
       console.log("Error fetching data:", error);
