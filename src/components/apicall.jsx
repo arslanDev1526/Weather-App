@@ -1,65 +1,72 @@
 import "./cardUI.css";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export const ApiCall = ({ photoData, setPhotoData }) => {
   const [city, setCity] = useState("");
   const [weatherData, setWeatherData] = useState(null);
-  const[locationData, setLocationData] = useState("");
+  const [locationData, setLocationData] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    
     getLocation();
   }, []);
 
   const getLocation = async () => {
-    const locationKey = "f45bbc42-3035-4559-85bf-c46b4992e474";
-    const locationUrl = `https://apiip.net/api/check?accessKey=${locationKey}`;
+    // const locationKey = "c69b603d-f684-453d-9ecc-2299bcd05324";
+    const locationUrl = `https://ipinfo.io/json?token=cee64318af7b27`;
 
     try {
       const locationResponse = await fetch(locationUrl);
       const locationData = await locationResponse.json();
       setLocationData(locationData.city);
 
-        hitApi(locationData.city);
+      hitApi(locationData.city);
     } catch (error) {
       console.log("Error fetching location data:", error);
     }
   };
- 
 
   const hitApi = async (city) => {
+    if (!city) {
+      toast.error("⚠️ Please enter a city name");
+      return;
+    }
     const apiKey = "95cc29ac246be73316eeafd2eb93e502";
     const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
 
     const accessKey = "b3zKo8_UhTGdEoKzlu5bZJPq0vJXfUWPAnrl0EbI4aE";
     const photoUrl = `https://api.unsplash.com/search/photos?query=${city}&client_id=${accessKey}`;
-  
 
-    setIsLoading(true);
-
-    try { 
+    try {
       const responses = await Promise.all([fetch(weatherUrl), fetch(photoUrl)]);
       const weatherData = await responses[0].json();
       const photoData = await responses[1].json();
-  
-      console.log(weatherData, "weatherData");
-      console.log(photoData, "photoData");
-  
-      setWeatherData(weatherData);
-      setPhotoData(photoData);
-    } catch(error) { 
-      console.log("Error fetching weather data:", error);
+
+      if (responses[0].ok && responses[1].ok) {
+        setWeatherData(weatherData);
+        setPhotoData(photoData);
+      } else {
+        toast.error("❌ Error! Please try again.");
+      }
+    } catch (error) {
+      console.log("Error fetching data:", error);
     }
-    setIsLoading(false);
   };
-  
+
   const KelvinToCelsius = (kelvin) => {
     let conversion = kelvin - 273.15;
     let wholeNum = parseInt(conversion);
     return wholeNum;
+  };
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    const regex = /^[a-zA-Z\s]*$/;
+    if (regex.test(value)) {
+      setCity(value);
+    }
   };
 
   return (
@@ -67,16 +74,14 @@ export const ApiCall = ({ photoData, setPhotoData }) => {
       <div className="card">
         <div className="search">
           <input
-            onChange={(e) => {
-              setCity(e.target.value);
-            }}
+            onChange={handleInputChange}
             type="text"
             value={city}
-            onKeyDown={event => event.key === 'Enter' && hitApi(event)}
+            onKeyDown={(event) => event.key === "Enter" && hitApi(city)}
             className="searchbar"
-            placeholder="search"
+            placeholder="Search"
           />
-          <button onClick={()=>hitApi(city)}>
+          <button onClick={() => hitApi(city)}>
             <svg
               stroke="currentColor"
               fill="currentColor"
@@ -95,24 +100,30 @@ export const ApiCall = ({ photoData, setPhotoData }) => {
           <div className="weather">
             <h2 className="city"> Weather in {weatherData.name} </h2>
             <h2 className="temp">
-              {KelvinToCelsius(weatherData.main.temp)}&#176;C
+              {KelvinToCelsius(weatherData.main.temp)} &#176;C
             </h2>
             <div className="flex">
-              <img src="" alt="clods" />
-              <div className="description"> scattered clouds</div>
+              <img
+                src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`}
+                alt=""
+              />
+              <div className="description">
+                {" "}
+                {weatherData.weather[0].description}
+              </div>
             </div>
             <div className="humidity">
-              Humidity:{weatherData.main.humidity}%
+              Humidity: {weatherData.main.humidity} %
             </div>
             <div className="wind">
               {" "}
-              Wind speed:{weatherData.wind.speed} m/s{" "}
+              Wind speed: {weatherData.wind.speed} m/s{" "}
             </div>
           </div>
         )}
       </div>
 
-      <ToastContainer autoClose={1000} />
+      <ToastContainer autoClose={2000} />
     </>
   );
 };

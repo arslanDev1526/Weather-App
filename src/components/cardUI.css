@@ -15,7 +15,7 @@
   border-radius: 30px;
   width: 100%;
   max-width: 420px;
-  margin: 1em;
+  height: 315px;
 }
 
 .card:hover {
@@ -26,12 +26,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 25px;
 }
 
 input.searchbar {
   border: none;
   outline: none;
-  padding: 0.4em 1em;
+  padding: 0.6em 1em;
   border-radius: 24px;
   background: #7c7c7c2b;
   color: whitesmoke;
@@ -40,16 +41,19 @@ input.searchbar {
   width: calc(100% - 100px); 
 }
 
+input::placeholder { 
+  color: whitesmoke;
+}
+
 .searchbar:hover {
   transform: scale(1.07);
 }
 
 button { 
-  margin: 1.7em;
   border-radius: 50%;
   border: none;
-  height: 45px;
-  width: 45px;
+  height: 30px;
+  width: 30px;
   outline: none;
   background: #7c7c7c2b;
   color: whitesmoke;
@@ -60,8 +64,12 @@ button {
 
 svg { 
   position: absolute;
-  top: 28%;
-  left: 28%;
+  top: 18%;
+  left: 18%;
+}
+
+img { 
+  width: 35px;
 }
 
 .city { 
@@ -75,10 +83,15 @@ button:hover {
 
 .temp {
   margin: 15px 0px ;
+  font-size: 30px;
 }
 
 .humidity { 
   margin: 15px 0px ;
+}
+
+.weather { 
+  margin: 25px 0 0 27px;
 }
 
 .flex {
@@ -91,7 +104,6 @@ button:hover {
   margin-left: 8px;
 }
 
-
 .blurred-img {
   background-image: url("../assets/loading.gif");
   background-repeat: no-repeat;
@@ -100,9 +112,11 @@ button:hover {
   background-position: center;
 }
 
-/* .blurred-img div {
-  opacity: 0;
-} */
-
+@media (max-width: 600px) {
+  .card {
+    padding: 2em 1em; 
+    max-width: 90%;
+  }
+}
 
 
