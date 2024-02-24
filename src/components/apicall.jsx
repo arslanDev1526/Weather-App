@@ -74,6 +74,9 @@ export const ApiCall = ({ photoData, setPhotoData }) => {
       <div className="card">
         <div className="search">
           <input
+
+          spellCheck = "true"
+          autoCapitalize="on"
             onChange={handleInputChange}
             type="text"
             value={city}
